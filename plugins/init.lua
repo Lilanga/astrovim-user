@@ -28,6 +28,7 @@ return {
     cond = vim.g.neovide == nil,
     lazy = false,
     opts = {
+      type = "matrix",
       autostart = true,
       fancy = { enable = true },
     },
