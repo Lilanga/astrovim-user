@@ -10,7 +10,7 @@ return {
   },
   opt = {
     -- guifont = "VictorMono Nerd Font,Hack Nerd Font:h13.5:#h-normal",
-    guifont = "VictorMono Nerd Font,Hack Nerd Font:h13.5:#e-subpixelantialias:n-none",
+    guifont = "VictorMono Nerd Font,Hack Nerd Font:h12:#e-subpixelantialias:antialias=1:autohint=0",
   },
   o = {
     autoread = true,

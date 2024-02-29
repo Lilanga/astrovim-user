@@ -24,11 +24,11 @@ function M.mode()
   local mode = get_mode:lower()
   local icon = "ﮊ "
   if mode == "n" then
-    icon = " "
+    icon = " "
   elseif mode == "i" then
     icon = "ﲅ "
   elseif mode == "v" or mode == "" or mode == "s" then
-    icon = " "
+    icon = "ﴣ "
   elseif mode == "r" then
     icon = " "
   elseif mode == "c" or mode == "t" then

@@ -2,7 +2,7 @@ return {
   ------ disable ------
   ---------------------
 
-  { "goolord/alpha-nvim", enabled = false },
+  { "goolord/alpha-nvim",           enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
   ------ Visuals ------
@@ -25,12 +25,15 @@ return {
 
   {
     "gen740/SmoothCursor.nvim",
-    cond = vim.g.neovide == nil,
+    -- cond = vim.g.neovide == nil,
     lazy = false,
     opts = {
-      type = "matrix",
+      type = "exp",
       autostart = true,
-      fancy = { enable = true },
+      fancy = { 
+        enable = true,
+        head = { cursor = "", texthl = "SmoothCursor", linehl = nil, },
+      },
     },
   },
 
