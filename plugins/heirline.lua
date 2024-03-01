@@ -164,26 +164,47 @@ return {
       },
     }
 
-    -- opts.winbar = status.astro.component.breadcrumbs {
-    --   condition = status.astro.condition.is_active,
-    --   hl = { fg = "winbar_fg", bg = "winbar_fg" },
-    -- }
-
-    opts.winbar = nil
-
-    opts.tabline[2] = status.astro.heirline.make_buflist {
+    opts.winbar = {     -- create custom winbar
+      -- store the current buffer number
+      init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
+      fallthrough = false,     -- pick the correct winbar based on condition
+      -- inactive winbar
       {
-        provider = function(self) return self.is_visible and " " or " " end,
-        hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
+        condition = function() return not status.astro.condition.is_active() end,
+        -- show the path to the file relative to the working directory
+        status.astro.component.separated_path { path_func = status.astro.provider.filename { modify = ":.:h" } },
+        -- add the file name and icon
+        status.astro.component.file_info {
+          file_icon = { hl = status.astro.hl.file_icon "winbar", padding = { left = 0 } },
+          file_modified = false,
+          file_read_only = false,
+          hl = status.astro.hl.get_attributes("winbarnc", true),
+          surround = false,
+          update = "BufEnter",
+        },
       },
-      status.astro.component.tabline_file_info { close_button = false },
+      -- active winbar
       {
-        provider = function(self) return self.is_visible and " " or " " end,
-        hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
+        -- show the path to the file relative to the working directory
+        status.astro.component.separated_path { path_func = status.astro.provider.filename { modify = ":.:h" } },
+        -- add the file name and icon
+        status.astro.component.file_info {     -- add file_info to breadcrumbs
+          file_icon = { hl = status.astro.hl.filetype_color, padding = { left = 0 } },
+          file_modified = false,
+          file_read_only = false,
+          hl = status.astro.hl.get_attributes("winbar", true),
+          surround = false,
+          update = "BufEnter",
+        },
+        -- show the breadcrumbs
+        status.astro.component.breadcrumbs {
+          icon = { hl = true },
+          hl = status.astro.hl.get_attributes("winbar", true),
+          prefix = true,
+          padding = { left = 0 },
+        },
       },
     }
-
-    opts.tabline[3] = status.astro.component.fill { hl = { bg = "buffer_visible_bg" } }
 
     return opts
   end,

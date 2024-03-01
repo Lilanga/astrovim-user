@@ -91,4 +91,7 @@ return {
     { import = "astrocommunity.register.nvim-neoclip-lua" },
   
     { import = "astrocommunity.utility.noice-nvim" },
+
+    -- Bars and lines
+    { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   }
