@@ -1,8 +1,6 @@
 return {
   ------ disable ------
   ---------------------
-
-  { "goolord/alpha-nvim",           enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
   ------ Visuals ------
@@ -126,6 +124,13 @@ return {
   },
 
   { "folke/trouble.nvim" },
+
+  { "nvim-lua/plenary.nvim" },
+
+  -- {
+  --   'stevearc/dressing.nvim',
+  --   opts = {},
+  -- },
 
   {
     "RishabhRD/nvim-cheat.sh",
