@@ -1,6 +1,6 @@
-local macro = require "user.util.macro"
-local buffer = require "astronvim.utils.buffer"
-local astro_utils = require "astronvim.utils"
+local macro = require "util.macro"
+local buffer = require "astrocore.buffer"
+local astro_utils = require "astrocore"
 
 return {
   n = {
@@ -49,6 +49,13 @@ return {
     -- ["<C-b>"] = { "<cmd>Telescope file_browser<CR>" },
     -- ["<C-z>"] = { "<cmd>Telescope undo<CR>" },
 
+    -- Trouble --
+    ["<leader>xx"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble list" },
+    ["<leader>xw"] = { "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>", desc = "Toggle Trouble list" },
+    ["<leader>xd"] = { "<cmd>TroubleToggle lsp_document_diagnostics<CR>", desc = "Toggle Trouble list" },
+    ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<CR>", desc = "Toggle Trouble list" },
+    ["<leader>xl"] = { "<cmd>TroubleToggle loclist<CR>", desc = "Toggle Trouble list" },
+    ["<leader>xr"] = { "<cmd>TroubleToggle lsp_references<CR>", desc = "Toggle Trouble list" },
     --
     ["<leader>n"] = { "<cmd>ZenMode<CR>", desc = "Centers and mutes code" },
     ["<leader>u1"] = { "<cmd>AerialToggle<CR>", desc = "Toggle Aerial" },
