@@ -76,7 +76,10 @@ return {
     { import = "astrocommunity.pack.markdown" },
     -- Treesitter: markdown & markdown_inline, Lsp: marksman, Lint/format: prettierd
     { import = "astrocommunity.pack.yaml" },
-  
+    -- Treesitter: typescript & typescriptreact, Lsp: tsserver, Lint/format: eslint_d
+    { import = "astrocommunity.pack.typescript" },
+
+    { import = "astrocommunity.pack.yaml" },
     -- switch between projects
     { import = "astrocommunity.project.project-nvim" },
   
@@ -85,7 +88,6 @@ return {
   
     -- Programing Language support
     { import = "astrocommunity.programming-language-support.nvim-jqx" },
-    { import = "astrocommunity.programming-language-support.rest-nvim" },
   
     -- Registers
     { import = "astrocommunity.register.nvim-neoclip-lua" },
