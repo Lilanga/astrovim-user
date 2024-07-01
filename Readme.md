@@ -49,6 +49,6 @@ Currently using with Neovim 0.10.0
 
 Following are screenshots of the applied NVIM configuration. I am using Iterm2 with semi transparent background settings. The font used is Fira Code.
 
-![Welcome screen](https://raw.githubusercontent.com/Lilanga/astrovim-config/main/docs/welcome.png)
+![Welcome screen](https://raw.githubusercontent.com/Lilanga/astrovim-user/main/docs/welcome.png)
 
-![Editor screen](https://raw.githubusercontent.com/Lilanga/astrovim-config/main/docs/screenshot.png)
+![Editor screen](https://raw.githubusercontent.com/Lilanga/astrovim-user/main/docs/screenshot.png)
