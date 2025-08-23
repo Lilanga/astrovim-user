@@ -76,11 +76,43 @@ return {
       map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>", { desc = "Location list" })
       map("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<CR>", { desc = "LSP references" })
 
-      -- Terminal mappings
-      map("n", "<leader>th", "<cmd>ToggleTerm size=15 direction=horizontal<CR>", { desc = "Terminal Horizontal" })
-      map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<CR>", { desc = "Terminal Vertical" })
-      map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Float" })
-      map("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", { desc = "Terminal Tab" })
+      -- Terminal mappings (WezTerm if available, integrated otherwise)
+      map("n", "<leader>th", function()
+        if _G.TerminalUtils then
+          _G.TerminalUtils.open_external_terminal("horizontal")
+        else
+          vim.cmd("ToggleTerm size=15 direction=horizontal")
+        end
+      end, { desc = "Terminal Horizontal (External/Integrated)" })
+      
+      map("n", "<leader>tv", function()
+        if _G.TerminalUtils then
+          _G.TerminalUtils.open_external_terminal("vertical")
+        else
+          vim.cmd("ToggleTerm size=80 direction=vertical")
+        end
+      end, { desc = "Terminal Vertical (External/Integrated)" })
+      
+      map("n", "<leader>tf", function()
+        if _G.TerminalUtils then
+          _G.TerminalUtils.open_external_terminal("float")
+        else
+          vim.cmd("ToggleTerm direction=float")
+        end
+      end, { desc = "Terminal Float (External/Integrated)" })
+      
+      -- Integrated terminal specific
+      map("n", "<leader>ti", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "Terminal Integrated" })
+      map("n", "<leader>tI", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Integrated Float" })
+      
+      -- External terminal specific (WezTerm/Windows Terminal)
+      map("n", "<leader>te", function()
+        if _G.TerminalUtils then
+          _G.TerminalUtils.open_external_terminal("horizontal")
+        else
+          vim.notify("No external terminal available", vim.log.levels.WARN)
+        end
+      end, { desc = "Terminal External (WezTerm/WT)" })
       
       -- Other tools
       map("n", "<leader>n", "<cmd>ZenMode<CR>", { desc = "Zen Mode" })
