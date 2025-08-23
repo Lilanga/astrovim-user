@@ -6,7 +6,7 @@ return {
   },
   opts = function(_, opts)
     local actions = require "telescope.actions"
-    return require("astrocore").extend_tbl(opts, {
+    return vim.tbl_deep_extend("force", opts, {
       defaults = {
         winblend = vim.o.winblend + 10,
         selection_caret = "  ",

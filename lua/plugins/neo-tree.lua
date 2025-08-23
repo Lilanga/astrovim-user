@@ -7,7 +7,6 @@ return {
       init = function() vim.g.neo_tree_remove_legacy_commands = true end,
       opts = function()
         local utils = require "astroui"
-        local astro = require "astrocore"
         local get_icon = utils.get_icon
         return {
           auto_clean_after_session_restore = true,
@@ -49,7 +48,7 @@ return {
           },
           commands = {
             system_open = function(state)
-              (vim.ui.open or astro.system_open)(state.tree:get_node():get_id())
+              (vim.ui.open or vim.fn.jobstart)(state.tree:get_node():get_id())
             end,
             parent_or_close = function(state)
               local node = state.tree:get_node()
@@ -118,7 +117,7 @@ return {
               ["<space>"] = false, -- disable space until we figure out which-key disabling
               ["[b"] = "prev_source",
               ["]b"] = "next_source",
-              F = astro.is_available "telescope.nvim" and "find_in_dir" or nil,
+              F = pcall(require, "telescope") and "find_in_dir" or nil,
               O = "system_open",
               Y = "copy_selector",
               h = "parent_or_close",

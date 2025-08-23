@@ -2,6 +2,7 @@ return {
   ------ disable ------
   ---------------------
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+  { "uga-rosa/ccc.nvim",            enabled = false }, -- Disable due to LSP buffer handling issues
 
   ------ Visuals ------
   ---------------------
@@ -28,7 +29,7 @@ return {
     opts = {
       type = "exp",
       autostart = true,
-      fancy = { 
+      fancy = {
         enable = true,
         head = { cursor = "", texthl = "SmoothCursor", linehl = nil, },
       },
@@ -51,11 +52,103 @@ return {
 
   {
     "folke/which-key.nvim",
-    opts = function(_, opts)
-      return require("astrocore").extend_tbl(opts, {
-        window = {
-          winblend = vim.g.winblend,
+    event = "VeryLazy",
+    config = function()
+      local wk = require("which-key")
+      
+      -- Configure which-key with v3 compatible settings
+      wk.setup({
+        preset = "modern",
+        delay = 200,
+        expand = 1,
+        notify = false,
+        triggers = {
+          { "<auto>", mode = "nixsotc" },
+          { "<leader>", mode = { "n", "v" } },
         },
+        win = {
+          border = "rounded",
+          padding = { 1, 2 }, -- extra window padding [top/bottom, left/right]
+          title = true,
+          title_pos = "center",
+          zindex = 1000,
+          -- Remove winblend from win config - it's not supported in v3
+        },
+        layout = {
+          width = { min = 20 },
+          spacing = 3,
+        },
+        keys = {
+          scroll_down = "<c-d>",
+          scroll_up = "<c-u>",
+        },
+        sort = { "local", "order", "group", "alphanum", "mod" },
+        expand = 0,
+        replace = {
+          key = {
+            function(key)
+              return require("which-key.view").format(key)
+            end,
+          },
+        },
+        icons = {
+          breadcrumb = "»",
+          separator = "➜",
+          group = "+",
+          ellipsis = "…",
+          mappings = true,
+          rules = {},
+          colors = true,
+          keys = {
+            Up = " ",
+            Down = " ",
+            Left = " ",
+            Right = " ",
+            C = "󰘴 ",
+            M = "󰘵 ",
+            D = "󰘳 ",
+            S = "󰘶 ",
+            CR = "󰌑 ",
+            Esc = "󱊷 ",
+            ScrollWheelDown = "󱕐 ",
+            ScrollWheelUp = "󱕑 ",
+            NL = "󰌑 ",
+            BS = "󰁮",
+            Space = "󱁐 ",
+            Tab = "󰌒 ",
+            F1 = "󱊫",
+            F2 = "󱊬",
+            F3 = "󱊭",
+            F4 = "󱊮",
+            F5 = "󱊯",
+            F6 = "󱊰",
+            F7 = "󱊱",
+            F8 = "󱊲",
+            F9 = "󱊳",
+            F10 = "󱊴",
+            F11 = "󱊵",
+            F12 = "󱊶",
+          },
+        },
+        show_help = true,
+        show_keys = true,
+        disable = {
+          bt = {},
+          ft = {},
+        },
+      })
+      
+      -- Register key groups
+      wk.add({
+        { "<leader>b", group = "Buffer" },
+        { "<leader>f", group = "Find" },
+        { "<leader>g", group = "Git" },
+        { "<leader>l", group = "LSP" },
+        { "<leader>t", group = "Terminal" },
+        { "<leader>u", group = "UI" },
+        { "<leader>x", group = "Diagnostics" },
+        { "<leader>r", group = "Replace" },
+        { "<leader>s", group = "Search" },
       })
     end,
   },
@@ -97,19 +190,8 @@ return {
       { "nvim-treesitter/nvim-treesitter", lazy = true },
     },
     event = "VeryLazy",
+    ft = { "org" },
     config = function()
-      -- Load treesitter grammar for org
-      require("orgmode").setup_ts_grammar()
-
-      -- Setup treesitter
-      require("nvim-treesitter.configs").setup {
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { "org" },
-        },
-        ensure_installed = { "org" },
-      }
-
       -- Setup orgmode
       require("orgmode").setup {
         org_agenda_files = "~/orgfiles/**/*",
@@ -117,25 +199,47 @@ return {
       }
     end,
   },
-  -- tagbar, needs ctags to work.
+  -- Replaced tagbar with aerial.nvim for better LSP integration
   {
-    "preservim/tagbar",
-    cmd = "TagbarToggle",
+    "stevearc/aerial.nvim",
+    cmd = { "AerialToggle", "AerialOpen", "AerialNavToggle" },
+    opts = {
+      attach_mode = "window",
+      backends = { "lsp", "treesitter", "markdown", "man" },
+      layout = { min_width = 28 },
+      show_guides = true,
+      filter_kind = false,
+      guides = {
+        mid_item = "├ ",
+        last_item = "└ ",
+        nested_top = "│ ",
+        whitespace = "  ",
+      },
+      keymaps = {
+        ["[y"] = "actions.prev",
+        ["]y"] = "actions.next",
+        ["[Y"] = "actions.prev_up",
+        ["]Y"] = "actions.next_up",
+        ["{"] = false,
+        ["}"] = false,
+      },
+    },
   },
 
   { "folke/trouble.nvim" },
 
-  { "nvim-lua/plenary.nvim" },
+  -- plenary.nvim is already included as a dependency by other plugins
 
-  -- {
-  --   'stevearc/dressing.nvim',
-  --   opts = {},
-  -- },
+  -- dressing.nvim is now handled by snacks.nvim in AstroNvim v5
 
+  -- Replaced nvim-cheat.sh with cheatsheet.nvim for better compatibility
   {
-    "RishabhRD/nvim-cheat.sh",
+    "sudormrfbin/cheatsheet.nvim",
+    cmd = { "Cheatsheet", "CheatsheetEdit" },
     dependencies = {
-      "RishabhRD/popfix",
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
     },
   },
 
@@ -148,7 +252,14 @@ return {
   -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
-    ft = "<leader>r",
+    keys = {
+      {
+        "<leader>sr",
+        function() require("ssr").open() end,
+        mode = { "n", "x" },
+        desc = "Structural Replace"
+      },
+    },
     opts = {
       min_width = 50,
       min_height = 5,
@@ -191,11 +302,7 @@ return {
 
   ------ git ------
   -----------------
-
-  {
-    "sindrets/diffview.nvim",
-    event = "User AstroGitFile",
-  },
+  -- diffview.nvim is now imported from astrocommunity
 
   --- Languages ---
   -----------------
@@ -216,7 +323,18 @@ return {
     end,
   },
 
-  { "folke/neodev.nvim" },
+  -- neodev.nvim is deprecated, use lazydev.nvim instead
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true },
 
   { "sbdchd/neoformat" },
 
@@ -224,15 +342,6 @@ return {
   -----------------
 
 
-  ------- icons -------
-  ---------------------
-  {
-    "nvim-tree/nvim-web-devicons",
-    dependencies = { "DaikyXendo/nvim-material-icon" },
-    config = function()
-      require("nvim-web-devicons").setup {
-        override = require("nvim-material-icon").get_icons(),
-      }
-    end,
-  },
+  -- Icons are now handled by mini.icons in AstroNvim v5
+  -- See lua/plugins/webdevicons.lua for the configuration
 }
