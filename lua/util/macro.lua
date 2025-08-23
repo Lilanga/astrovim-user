@@ -1,6 +1,9 @@
 local M = {}
 
-local notify = require("astrocore.utils").notify
+-- AstroNvim v5 compatible notification
+local function notify(msg, level, opts)
+  vim.notify(msg, vim.log.levels[string.upper(level or "info")], opts)
+end
 
 function M.better_search(key)
   return function()

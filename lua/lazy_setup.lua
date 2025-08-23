@@ -1,7 +1,10 @@
+-- Initialize global THEME before loading plugins
+require("theme-init").init()
+
 require("lazy").setup({
   {
     "AstroNvim/AstroNvim",
-    version = "^4", -- Remove version tracking to elect for nighly AstroNvim
+    version = "^5", -- Updated to AstroNvim v5
     import = "astronvim.plugins",
     opts = { -- AstroNvim options must be set here with the `import` key
       mapleader = " ", -- This ensures the leader key must be configured before Lazy is set up

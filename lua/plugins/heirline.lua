@@ -6,7 +6,7 @@ return {
       astro = require "astroui.status",
     }
     local astroui = require "astroui"
-    local devicons = require "nvim-web-devicons"
+    local mini_icons = require "mini.icons"
 
 
     local mode_text_color_1 = {
@@ -26,9 +26,9 @@ return {
     }
 
     local bufnr = self and self.bufnr or 0
-    local ft_icon, _ = devicons.get_icon(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t"))
+    local ft_icon, _ = mini_icons.get("file", vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t"))
     if not ft_icon then
-      ft_icon, _ = devicons.get_icon_by_filetype(vim.bo[bufnr].filetype, { default = true })
+      ft_icon, _ = mini_icons.get("filetype", vim.bo[bufnr].filetype)
     end
 
     -- the first element of the configuration table is the statusline
@@ -48,9 +48,11 @@ return {
         surround = {
           separator = "left",
           color = function()
+            local theme_init = require("theme-init")
+            local theme = theme_init.get_theme()
             return {
-              main = status.user.mode_color(THEME.mode),
-              right = status.user.mode_color(THEME.grapple),
+              main = status.user.mode_color(theme.mode),
+              right = status.user.mode_color(theme.grapple),
             }
           end,
         },

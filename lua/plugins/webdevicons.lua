@@ -1,13 +1,10 @@
 return {
   {
-    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.icons",
     event = { "VeryLazy" },
-    dependencies = {
-      "Allianaab2m/nvim-material-icon-v3",
-    },
     config = function()
-      require("nvim-web-devicons").setup({
-        override = require("nvim-material-icon").get_icons()
+      require("mini.icons").setup({
+        -- Optional: customize icons here
       })
     end
   }

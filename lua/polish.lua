@@ -7,9 +7,5 @@
 -- setup autocmds
 require "autocmd"
 
-local function change_color_scheme(scheme)
-  vim.cmd('colorscheme ' .. scheme)
-end
-
--- this will trigger the defined autocmds
-change_color_scheme('tokyonight')
+-- Theme is now loaded via plugins/tokyonight.lua
+-- No need to set colorscheme here as it's handled by the plugin configuration

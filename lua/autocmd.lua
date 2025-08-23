@@ -12,10 +12,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.g.heirline_bufferline = true
       vim.g.winblend = vim.g.neovide and 30 or 0
       vim.opt.guifont = "VictorMono Nerd Font,Hack Nerd Font:h12:#e-subpixelantialias:antialias=1:autohint=0"
-      -- opt = {
-      --   -- guifont = "VictorMono Nerd Font,Hack Nerd Font:h13.5:#h-normal",
-      --   -- guifont = "VictorMono Nerd Font,Hack Nerd Font:h12:#e-subpixelantialias:antialias=1:autohint=0",
-      -- }
       vim.o.autoread = true
       vim.o.winwidth = 10
       vim.o.winminwidth = 10
@@ -36,16 +32,6 @@ local function is_lsp_server_ready()
   return #clients > 0
 end
 
--- vim.api.nvim_create_augroup("DiagnosticPopup", { clear = true })
--- vim.api.nvim_create_autocmd("CursorHold", {
---   group = "DiagnosticPopup",
---   callback = function()
---     local row, col = vim.api.nvim_win_get_cursor(0)
---     local line_diagnostic = vim.diagnostic.get(0, { lnum = row })
---     if is_lsp_server_ready() then vim.diagnostic.open_float() end
---   end,
--- })
-
 vim.api.nvim_create_augroup("DiagnosticMode", { clear = true })
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = { "i", "v" },
@@ -63,32 +49,52 @@ vim.api.nvim_create_autocmd("ModeChanged", {
   end,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    _G.THEME = require("util.theme").setup()
-    vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.normal })
+-- THEME is now initialized in theme-init.lua before this file loads
+-- Set up SmoothCursor highlights using the theme system
+local theme_init = require("theme-init")
+
+-- Set initial SmoothCursor color
+local function update_smooth_cursor()
+  local normal_color = theme_init.get_mode_color("normal")
+  if normal_color then
+    vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = normal_color })
   end
+end
+
+-- Update cursor color on theme changes
+vim.api.nvim_create_autocmd("User", {
+  pattern = "ThemeUpdated",
+  group = vim.api.nvim_create_augroup("SmoothCursorTheme", { clear = true }),
+  callback = update_smooth_cursor,
+  desc = "Update SmoothCursor colors when theme changes"
 })
+
+-- Set initial color
+update_smooth_cursor()
 
 -- Set the cursor color based on the mode
 vim.api.nvim_create_autocmd({ 'ModeChanged' }, {
+  group = vim.api.nvim_create_augroup("SmoothCursorMode", { clear = true }),
   callback = function()
     local current_mode = vim.fn.mode()
+    local color
+    
     if current_mode == 'n' then
-      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.normal })
-      vim.fn.sign_define('smoothcursor', { text = '' })
-    elseif current_mode == 'v' then
-      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.visual })
-      vim.fn.sign_define('smoothcursor', { text = '' })
-    elseif current_mode == 'V' then
-      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.visual })
-      vim.fn.sign_define('smoothcursor', { text = '' })
+      color = theme_init.get_mode_color("normal")
+    elseif current_mode == 'v' or current_mode == 'V' then
+      color = theme_init.get_mode_color("visual")
     elseif current_mode == 'r' or current_mode == 'R' then
-      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.replace })
-      vim.fn.sign_define('smoothcursor', { text = '' })
+      color = theme_init.get_mode_color("replace")
     elseif current_mode == 'i' then
-      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = THEME.mode.insert })
-      vim.fn.sign_define('smoothcursor', { text = '' })
+      color = theme_init.get_mode_color("insert")
+    elseif current_mode == 'c' then
+      color = theme_init.get_mode_color("command")
+    end
+    
+    if color then
+      vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = color })
+      vim.fn.sign_define('smoothcursor', { text = '' })
     end
   end,
+  desc = "Update SmoothCursor color based on current mode"
 })

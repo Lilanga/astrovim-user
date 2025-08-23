@@ -1,7 +1,7 @@
 # Astrovim user configurations
 
-This repository contains my personal configurations using for Neovide based on [AstroNvim](www.github.com/AstroNvim/AstroNvim) V4.
-Updated to support Neovim 0.10.0 and AstroNvim 4. For the original AstroNvim configurations, please refer to the [AstroNvim](www.github.com/AstroNvim/AstroNvim) repository. AstroNvim 3 configurations are available in the astrovim3 branch.
+This repository contains my personal configurations using for Neovide based on [AstroNvim](www.github.com/AstroNvim/AstroNvim) V5.
+Updated to support Neovim 0.10.0+ and AstroNvim 5. For the original AstroNvim configurations, please refer to the [AstroNvim](www.github.com/AstroNvim/AstroNvim) repository. Previous versions are available in respective branches (astrovim3, astrovim4).
 
 ## Installation
 

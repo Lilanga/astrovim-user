@@ -2,17 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
     ignore_install = { "help" },
-    ensure_installed = {
-      "c",
-      "lua",
-      "vim",
-      "help",
-      "rust",
-      "cpp",
-      "python",
-      "gdscript",
-      -- "gdresource"
-    },
+    -- ensure_installed is handled in the main opts function below
   },
   dependencies = {
     {
@@ -66,8 +56,9 @@ return {
     {
       "nvim-treesitter/playground",
       cmd = "TSPlaygroundToggle",
+      enabled = false, -- Deprecated: Use :InspectTree instead (built into Neovim 0.9+)
     },
-    { "JoosepAlviste/nvim-ts-context-commentstring" },
+    { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false }, -- Deprecated: Built into Neovim 0.10+
     { "nvim-treesitter/nvim-treesitter-textobjects" },
     { "nvim-treesitter/nvim-treesitter-refactor" },
     { "windwp/nvim-ts-autotag" },
@@ -95,8 +86,8 @@ return {
     -- no longer trigger the **nvim-treeitter** module to be loaded in time.
     -- Luckily, the only thins that those plugins need are the custom queries, which we make available
     -- during startup.
-    -- CODE FROM LazyVim (thanks folke!) https://github.com/LazyVim/LazyVim/commit/1e1b68d633d4bd4faa912ba5f49ab6b8601dc0c9
-    require("lazy.core.loader").add_to_rtp(plugin)
+    -- Updated for AstroNvim v5 compatibility
+    vim.opt.runtimepath:prepend(plugin.dir .. "/queries")
     require "nvim-treesitter.query_predicates"
   end,
   opts = function()
@@ -107,11 +98,14 @@ return {
       ensure_installed = {
         "bash",
         "c",
+        "cpp",
+        "gdscript",
         "lua",
         "markdown",
         "markdown_inline",
         "python",
         "query",
+        "rust",
         "vim",
         "vimdoc",
       },

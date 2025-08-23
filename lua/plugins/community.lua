@@ -17,25 +17,15 @@ return {
     { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
     { import = "astrocommunity.diagnostics.trouble-nvim" },
   
-    -- color
-    -- color picker and highlighter
-    { import = "astrocommunity.color.ccc-nvim" },
+    -- ccc-nvim disabled due to AstroNvim v5 compatibility issues
   
-    -- Motion plugins
-    -- :help nvim-surround.usage.
-    { import = "astrocommunity.motion.nvim-surround" },
+    -- nvim-surround configured manually in init.lua
   
     -- Editor support
     -- Rainbow parens
     { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
     { import = "astrocommunity.editing-support.nvim-regexplainer" },
-    { import = "astrocommunity.editing-support.todo-comments-nvim" },
-    {
-      "folke/todo-comments.nvim",
-      opts = {
-        sign_priority = 5, -- higher sign display priority
-      },
-    },
+    -- todo-comments.nvim configured manually in init.lua
   
     -- Distraction free editing
     -- { import = "astrocommunity.editing-support.zen-mode-nvim" },
@@ -78,13 +68,10 @@ return {
     { import = "astrocommunity.pack.yaml" },
     -- Treesitter: typescript & typescriptreact, Lsp: tsserver, Lint/format: eslint_d
     { import = "astrocommunity.pack.typescript" },
-
-    { import = "astrocommunity.pack.yaml" },
     -- switch between projects
     { import = "astrocommunity.project.project-nvim" },
   
-    -- Search and replace across projects
-    { import = "astrocommunity.project.nvim-spectre" },
+    -- nvim-spectre is configured manually in init.lua (no astrocommunity import available)
   
     -- Programing Language support
     { import = "astrocommunity.programming-language-support.nvim-jqx" },
