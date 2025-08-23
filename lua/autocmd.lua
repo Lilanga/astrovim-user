@@ -1,7 +1,26 @@
+-- Configure PowerShell as default shell for all terminal operations
+local function setup_powershell()
+  if vim.fn.has("win32") == 1 then
+    -- Set PowerShell as default shell
+    vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+    vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    vim.o.shellquote = ""
+    vim.o.shellxquote = ""
+  end
+end
+
+-- Setup PowerShell immediately
+setup_powershell()
+
 vim.api.nvim_create_augroup("winblend", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
   group = "winblend",
   callback = function()
+    -- Ensure PowerShell is set up for terminal operations
+    setup_powershell()
+    
     if vim.g.neovide then
       vim.o.winblend = vim.g.winblend
       vim.cmd("hi! NormalFloat blend=" .. vim.o.winblend)
@@ -17,12 +36,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.o.winminwidth = 10
       vim.o.equalalways = true
       vim.o.pumblend = vim.g.winblend
-      vim.o.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
-      vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-      vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-      vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-      vim.o.shellquote = ""
-      vim.o.shellxquote = ""
     end
   end,
 })

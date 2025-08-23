@@ -76,6 +76,12 @@ return {
       map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>", { desc = "Location list" })
       map("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<CR>", { desc = "LSP references" })
 
+      -- Terminal mappings
+      map("n", "<leader>th", "<cmd>ToggleTerm size=15 direction=horizontal<CR>", { desc = "Terminal Horizontal" })
+      map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<CR>", { desc = "Terminal Vertical" })
+      map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Float" })
+      map("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<CR>", { desc = "Terminal Tab" })
+      
       -- Other tools
       map("n", "<leader>n", "<cmd>ZenMode<CR>", { desc = "Zen Mode" })
       map("n", "<leader>u1", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial" })

@@ -144,6 +144,7 @@ return {
         { "<leader>f", group = "Find" },
         { "<leader>g", group = "Git" },
         { "<leader>l", group = "LSP" },
+        { "<leader>t", group = "Terminal" },
         { "<leader>u", group = "UI" },
         { "<leader>x", group = "Diagnostics" },
         { "<leader>r", group = "Replace" },
