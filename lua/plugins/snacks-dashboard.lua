@@ -23,7 +23,6 @@ return {
       },
     }
     
-    print("Dashboard preset configured with bat4")
     return opts
   end,
 }
