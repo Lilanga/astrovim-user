@@ -1,6 +1,6 @@
 return {
   "folke/snacks.nvim",
-  event = "VimEnter", 
+  event = "VimEnter",
   priority = 1000,
   opts = function(_, opts)
     local dashboard_image = require("util.dashboard_image")
