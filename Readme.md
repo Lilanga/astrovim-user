@@ -2,6 +2,28 @@
 
 A comprehensive, modern Neovim configuration built on [AstroNvim v5](https://github.com/AstroNvim/AstroNvim), optimized for development workflows with AI assistance, advanced editing features, and beautiful UI enhancements.
 
+## 📸 Screenshots
+
+### Startup Dashboard
+![Welcome Screen](docs/welcome.png)
+
+### Editor Interface
+![Editor Screenshot](docs/screenshot.png)
+
+## 🌟 Tested Environments
+
+- **Operating Systems**: Windows 11, macOS, Linux
+- **Terminals**: WezTerm, iTerm2, Windows Terminal
+- **Shells**: PowerShell, Nushell, Bash, Zsh
+- **Fonts**: Hack Nerd Font, Victor Mono NF, Fira Code NF
+
+## 🚀 Version Information
+
+- **AstroNvim**: v5.x
+- **Neovim**: 0.10.0+
+- **Branch**: `astrovim5` (current)
+- **Previous versions**: Available in `astrovim4` and `astrovim3` branches
+
 ## ✨ Key Features
 
 ### 🤖 AI-Powered Development
@@ -130,28 +152,6 @@ Pre-configured language packs for:
 - Run `:Copilot auth` in Neovim
 - Follow the GitHub authentication flow
 - Check `:Copilot status` for connection status
-
-## 📸 Screenshots
-
-### Startup Dashboard
-![Welcome Screen](docs/welcome.png)
-
-### Editor Interface
-![Editor Screenshot](docs/screenshot.png)
-
-## 🌟 Tested Environments
-
-- **Operating Systems**: Windows 11, macOS, Linux
-- **Terminals**: WezTerm, iTerm2, Windows Terminal
-- **Shells**: PowerShell, Nushell, Bash, Zsh
-- **Fonts**: Hack Nerd Font, Victor Mono NF, Fira Code NF
-
-## 🚀 Version Information
-
-- **AstroNvim**: v5.x
-- **Neovim**: 0.10.0+
-- **Branch**: `astrovim5` (current)
-- **Previous versions**: Available in `astrovim4` and `astrovim3` branches
 
 ## 📝 Customization
 
