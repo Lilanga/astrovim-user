@@ -1,54 +1,175 @@
-# Astrovim user configurations
+# 🚀 AstroNvim v5 Personal Configuration
 
-This repository contains my personal configurations using for Neovide based on [AstroNvim](www.github.com/AstroNvim/AstroNvim) V5.
-Updated to support Neovim 0.10.0+ and AstroNvim 5. For the original AstroNvim configurations, please refer to the [AstroNvim](www.github.com/AstroNvim/AstroNvim) repository. Previous versions are available in respective branches (astrovim3, astrovim4).
+A comprehensive, modern Neovim configuration built on [AstroNvim v5](https://github.com/AstroNvim/AstroNvim), optimized for development workflows with AI assistance, advanced editing features, and beautiful UI enhancements.
 
-## Installation
+## ✨ Key Features
 
-[Install Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md) if you do not have nvim alreay.
+### 🤖 AI-Powered Development
+- **GitHub Copilot Integration** - AI code completion and chat assistance
+- **Codeium Support** - Alternative AI coding assistant
+- **Smart AI Keymaps** - Quick access to AI features under `<leader>A`
+- **CopilotChat** - Interactive AI conversations for code review, explanation, and generation
 
-1. Backup your current configuration (if any)
+### 🛠️ Enhanced Development Tools
+- **Git Integration** - Advanced git blame support with Snacks
+- **Terminal Enhancements** - Smart shell detection (PowerShell on Windows, Nushell support)
+- **Project Management** - Seamless project switching and navigation
+- **LSP Enhancements** - Improved document symbols handling and timeout fixes
 
-    *Nix:
+### 🎨 Visual Improvements
+- **Custom Dashboard** - Beautiful startup screen with project shortcuts
+- **Theme Enhancements** - Tokyo Night with custom modifications
+- **Better Escape** - Improved jk/kj escape sequences
+- **Smooth Cursor** - Enhanced cursor movement animations
+- **Rainbow Delimiters** - Color-coded bracket pairs
 
-    ```bash
-        mv ~/.config/nvim ~/.config/nvim.bak
-        mv ~/.local/share/nvim ~/.local/share/nvim.bak
-    ```
+### 📦 Language Support
+Pre-configured language packs for:
+- **TypeScript/JavaScript** - Full LSP, formatting, and linting
+- **Lua** - Complete Neovim development setup
+- **Docker** - Dockerfile and docker-compose support
+- **JSON/YAML** - Configuration file editing
+- **Markdown** - Documentation writing
+- **Clojure** - Functional programming support
 
-    Windows:
+## 🔧 Installation
 
-    ```pwsh
-        mv ~/AppData/Local/nvim ~/AppData/Local/nvim.bak
-        mv ~/AppData/Local/nvim-data ~/AppData/Local/nvim-data.bak
-    ```
+### Prerequisites
+- **Neovim 0.10.0+** - [Installation Guide](https://github.com/neovim/neovim/blob/master/INSTALL.md)
+- **Nerd Font** - Recommended: Hack Nerd Font or Victor Mono NF
+- **Git** - For plugin management and version control
 
-2. Clone this repository to your home directory
+### Quick Setup
 
-    *Nix:
+1. **Backup existing configuration**
+   ```bash
+   # Linux/macOS
+   mv ~/.config/nvim ~/.config/nvim.bak
+   mv ~/.local/share/nvim ~/.local/share/nvim.bak
+   
+   # Windows (PowerShell)
+   mv ~/AppData/Local/nvim ~/AppData/Local/nvim.bak
+   mv ~/AppData/Local/nvim-data ~/AppData/Local/nvim-data.bak
+   ```
 
-    ```bash
-        git clone git@github.com:Lilanga/astrovim-config.git ~/.config/nvim
-    ```
+2. **Clone configuration**
+   ```bash
+   # Linux/macOS
+   git clone https://github.com/Lilanga/astrovim-config.git ~/.config/nvim
+   
+   # Windows
+   git clone https://github.com/Lilanga/astrovim-config.git ~/AppData/Local/nvim
+   ```
 
-    Windows:
+3. **Launch Neovim**
+   ```bash
+   nvim
+   ```
+   
+   AstroNvim will automatically install all plugins on first launch.
 
-    ```bash
-        git clone git@github.com:Lilanga/astrovim-config.git ~/AppData/Local/nvim
-    ```
+## ⌨️ Key Mappings
 
-## OS / Environment tested
+### AI Assistant (`<leader>A`)
+| Key | Description |
+|-----|-------------|
+| `<leader>Ac` | Copilot controls (enable/disable/status) |
+| `<leader>ae` | Explain code with CopilotChat |
+| `<leader>ar` | Review code with CopilotChat |
+| `<leader>at` | Generate tests with CopilotChat |
+| `<leader>ac` | Open CopilotChat |
+| `<leader>aq` | Quick chat with Copilot |
 
-Hack Nerd Font and Victor Mono NF are used in the configuration.Ensure you have the fonts installed in your system and set the terminal font to the same.
+### Enhanced Navigation
+| Key | Description |
+|-----|-------------|
+| `fd` | Escape to normal mode |
+| `<leader>gb` | Toggle git blame |
+| `<C-\>`, `<Leader>th` | Toggle terminal, Toggle horizontally |
 
-This configuration has been tested on Windows and some tweaks done for pwsh. Also I am using this nvim setup on WezTerm with Nushell. I have different user configurations for my macos setup.
+### Custom Features
+- **Smart Shell Detection** - Automatically uses PowerShell on Windows, with Nushell support
+- **Project Switching** - Quick project navigation and switching
+- **Enhanced Terminal** - Improved terminal integration with smart shell selection
 
-Currently using with Neovim 0.10.0
+## 🛠️ Configuration Highlights
 
-## Screenshots
+### AI Integration
+- GitHub Copilot with proper keybindings
+- CopilotChat for interactive AI assistance
+- Codeium as alternative AI assistant
+- Smart AI workflow shortcuts
 
-Following are screenshots of the applied NVIM configuration. I am using Iterm2 with semi transparent background settings. The font used is Fira Code.
+### Visual Improvements
+- Custom dashboard with project shortcuts
+- Tokyo Night theme with modifications
+- Smooth cursor animations
+- Enhanced UI components with proper icons
 
-![Welcome screen](https://raw.githubusercontent.com/Lilanga/astrovim-user/main/docs/welcome.png)
+### Development Workflow
+- Auto-formatting on save (configurable per filetype)
+- Enhanced git integration with blame support
+- Project-aware configurations
+- Smart terminal detection
 
-![Editor screen](https://raw.githubusercontent.com/Lilanga/astrovim-user/main/docs/screenshot.png)
+## 🔍 Troubleshooting
+
+### Common Issues
+
+**"Error requesting document symbols"**
+- Run `:LspInfo` to check server status
+- Use `:checkhealth lsp` for diagnostics
+- Install any additional LSPs using `:Mason` command
+
+**Missing Nerd Font Icons**
+- Install a Nerd Font (Hack NF recommended)
+- Set terminal font to the Nerd Font
+- Restart terminal after font installation
+
+**Copilot Authentication**
+- Run `:Copilot auth` in Neovim
+- Follow the GitHub authentication flow
+- Check `:Copilot status` for connection status
+
+## 📸 Screenshots
+
+### Startup Dashboard
+![Welcome Screen](docs/welcome.png)
+
+### Editor Interface
+![Editor Screenshot](docs/screenshot.png)
+
+## 🌟 Tested Environments
+
+- **Operating Systems**: Windows 11, macOS, Linux
+- **Terminals**: WezTerm, iTerm2, Windows Terminal
+- **Shells**: PowerShell, Nushell, Bash, Zsh
+- **Fonts**: Hack Nerd Font, Victor Mono NF, Fira Code NF
+
+## 🚀 Version Information
+
+- **AstroNvim**: v5.x
+- **Neovim**: 0.10.0+
+- **Branch**: `astrovim5` (current)
+- **Previous versions**: Available in `astrovim4` and `astrovim3` branches
+
+## 📝 Customization
+
+This configuration is designed to be modular and easily customizable:
+
+- **Theme**: Modify `lua/plugins/tokyonight.lua` for theme customizations
+- **Keymaps**: Add custom mappings in `lua/plugins/keymaps.lua`
+- **LSP**: Extend language server configurations in `lua/plugins/astrolsp.lua`
+- **AI**: Customize AI integrations in `lua/plugins/copilot.lua` and `lua/plugins/ai-keymaps.lua`
+
+## 🤝 Contributing
+
+Feel free to fork this configuration and adapt it to your needs. If you find improvements or fixes, pull requests are welcome!
+
+## 📄 License
+
+This configuration is open source and available under the MIT License.
+
+---
+
+*Built with ❤️ using [AstroNvim](https://github.com/AstroNvim/AstroNvim)*
