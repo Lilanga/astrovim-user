@@ -1,4 +1,4 @@
--- Buffer utilities for AstroNvim v5 compatibility
+-- Buffer utilities
 local M = {}
 
 -- Get list of valid buffers

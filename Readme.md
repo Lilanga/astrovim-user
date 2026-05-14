@@ -1,8 +1,8 @@
-# 🚀 AstroNvim v5 Personal Configuration
+# AstroNvim v6 Personal Configuration
 
-A comprehensive, modern Neovim configuration built on [AstroNvim v5](https://github.com/AstroNvim/AstroNvim), optimized for development workflows with AI assistance, advanced editing features, and beautiful UI enhancements.
+A comprehensive, modern Neovim configuration built on [AstroNvim v6](https://github.com/AstroNvim/AstroNvim), optimized for development workflows with AI assistance, debugging, formatting, linting, and a polished UI.
 
-## 📸 Screenshots
+## Screenshots
 
 ### Startup Dashboard
 ![Welcome Screen](docs/welcome.png)
@@ -10,166 +10,378 @@ A comprehensive, modern Neovim configuration built on [AstroNvim v5](https://git
 ### Editor Interface
 ![Editor Screenshot](docs/screenshot.png)
 
-## 🌟 Tested Environments
+## Version Information
 
-- **Operating Systems**: Windows 11, macOS, Linux
-- **Terminals**: WezTerm, iTerm2, Windows Terminal
-- **Shells**: PowerShell, Nushell, Bash, Zsh
-- **Fonts**: Hack Nerd Font, Victor Mono NF, Fira Code NF
+- **AstroNvim**: v6.x
+- **Neovim**: 0.11.0+ required
+- **Branch**: `astronvim6-modern-ui` (current)
+- **Previous versions**: `astrovim5`, `astrovim4`, `astrovim3` branches
 
-## 🚀 Version Information
+## Prerequisites
 
-- **AstroNvim**: v5.x
-- **Neovim**: 0.10.0+
-- **Branch**: `astrovim5` (current)
-- **Previous versions**: Available in `astrovim4` and `astrovim3` branches
+### Required
 
-## ✨ Key Features
+| Tool | Version | Purpose |
+|------|---------|---------|
+| [Neovim](https://github.com/neovim/neovim/releases) | **0.11.0+** | Editor (v0.10 is NOT supported by AstroNvim v6) |
+| [Git](https://git-scm.com/) | 2.x+ | Plugin management and version control |
+| [Nerd Font](https://www.nerdfonts.com/) | Any | Icons and glyphs (CaskaydiaCove, JetBrainsMono, or VictorMono recommended) |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) | Latest | Live grep / content search |
+| [fd](https://github.com/sharkdp/fd) | Latest | File finder |
 
-### 🤖 AI-Powered Development
-- **GitHub Copilot Integration** - AI code completion and chat assistance
-- **Codeium Support** - Alternative AI coding assistant
-- **Smart AI Keymaps** - Quick access to AI features under `<leader>A`
-- **CopilotChat** - Interactive AI conversations for code review, explanation, and generation
+### Recommended
 
-### 🛠️ Enhanced Development Tools
-- **Git Integration** - Advanced git blame support with Snacks
-- **Terminal Enhancements** - Smart shell detection (PowerShell on Windows, Nushell support)
-- **Project Management** - Seamless project switching and navigation
-- **LSP Enhancements** - Improved document symbols handling and timeout fixes
+| Tool | Purpose |
+|------|---------|
+| [WezTerm](https://wezfurlong.org/wezterm/) | Terminal emulator with rich rendering |
+| [Nushell](https://www.nushell.sh/) | Modern cross-platform shell |
+| [Starship](https://starship.rs/) | Fast, customizable prompt |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI (used by snacks.lazygit) |
+| [Node.js](https://nodejs.org/) | Required for Copilot, some LSPs, and prettierd |
+| [Python](https://www.python.org/) | Required for Python LSP/DAP |
+| [Go](https://go.dev/) | Required for Go LSP/DAP |
 
-### 🎨 Visual Improvements
-- **Custom Dashboard** - Beautiful startup screen with project shortcuts
-- **Theme Enhancements** - Tokyo Night with custom modifications
-- **Better Escape** - Improved jk/kj escape sequences
-- **Smooth Cursor** - Enhanced cursor movement animations
-- **Rainbow Delimiters** - Color-coded bracket pairs
+### Installing Prerequisites
 
-### 📦 Language Support
-Pre-configured language packs for:
-- **TypeScript/JavaScript** - Full LSP, formatting, and linting
-- **Lua** - Complete Neovim development setup
-- **Docker** - Dockerfile and docker-compose support
-- **JSON/YAML** - Configuration file editing
-- **Markdown** - Documentation writing
-- **Clojure** - Functional programming support
+**Windows (Scoop):**
+```powershell
+scoop install neovim ripgrep fd fzf lazygit bat eza zoxide jq delta nushell starship
+scoop bucket add nerd-fonts
+scoop install CascadiaCode-NF
+```
 
-## 🔧 Installation
+**Windows (Winget):**
+```powershell
+winget install Neovim.Neovim
+winget install BurntSushi.ripgrep.MSVC
+winget install sharkdp.fd
+winget install jesseduffield.lazygit
+winget install wez.wezterm
+```
 
-### Prerequisites
-- **Neovim 0.10.0+** - [Installation Guide](https://github.com/neovim/neovim/blob/master/INSTALL.md)
-- **Nerd Font** - Recommended: Hack Nerd Font or Victor Mono NF
-- **Git** - For plugin management and version control
+**macOS (Homebrew):**
+```bash
+brew install neovim ripgrep fd fzf lazygit bat eza zoxide jq git-delta nushell starship
+brew install --cask wezterm font-caskaydia-cove-nerd-font
+```
 
-### Quick Setup
+**Linux (apt + manual):**
+```bash
+# Neovim 0.11+ - use the official release or build from source
+# https://github.com/neovim/neovim/releases
+sudo apt install ripgrep fd-find fzf jq
+# Install lazygit, nushell, starship from their official releases
+```
 
-1. **Backup existing configuration**
-   ```bash
-   # Linux/macOS
-   mv ~/.config/nvim ~/.config/nvim.bak
-   mv ~/.local/share/nvim ~/.local/share/nvim.bak
-   
-   # Windows (PowerShell)
-   mv ~/AppData/Local/nvim ~/AppData/Local/nvim.bak
-   mv ~/AppData/Local/nvim-data ~/AppData/Local/nvim-data.bak
-   ```
+### Verify Neovim Version
 
-2. **Clone configuration**
-   ```bash
-   # Linux/macOS
-   git clone https://github.com/Lilanga/astrovim-config.git ~/.config/nvim
-   
-   # Windows
-   git clone https://github.com/Lilanga/astrovim-config.git ~/AppData/Local/nvim
-   ```
+```bash
+nvim --version
+# Must show NVIM v0.11.0 or later
+```
 
-3. **Launch Neovim**
-   ```bash
-   nvim
-   ```
-   
-   AstroNvim will automatically install all plugins on first launch.
+## Installation
 
-## ⌨️ Key Mappings
+### 1. Backup existing configuration
 
-### AI Assistant (`<leader>A`)
+```bash
+# Linux/macOS
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+
+# Windows (PowerShell)
+Rename-Item ~/AppData/Local/nvim ~/AppData/Local/nvim.bak
+Rename-Item ~/AppData/Local/nvim-data ~/AppData/Local/nvim-data.bak
+```
+
+### 2. Clone configuration
+
+```bash
+# Linux/macOS
+git clone -b astronvim6-modern-ui https://github.com/Lilanga/astrovim-user.git ~/.config/nvim
+
+# Windows (PowerShell)
+git clone -b astronvim6-modern-ui https://github.com/Lilanga/astrovim-user.git ~/AppData/Local/nvim
+```
+
+### 3. Launch Neovim
+
+```bash
+nvim
+```
+
+AstroNvim will automatically install all plugins on first launch. Wait for the installation to complete.
+
+### 4. Post-install health checks
+
+Run these commands inside Neovim:
+
+```vim
+:Lazy sync
+:checkhealth
+:checkhealth vim.lsp
+:checkhealth snacks
+:Mason
+:TSUpdate
+```
+
+### 5. Install LSP servers and tools
+
+Open Neovim and run `:Mason` to install language servers and tools. The community packs will auto-install most tools, but verify these are present:
+
+| Tool | Install via Mason | Purpose |
+|------|-------------------|---------|
+| `lua-language-server` | Auto | Lua LSP |
+| `stylua` | Auto | Lua formatter |
+| `typescript-language-server` | Auto | TypeScript/JavaScript LSP |
+| `eslint-lsp` | Auto | JS/TS linting |
+| `prettierd` | Auto | JS/TS/CSS/HTML formatting |
+| `gopls` | Auto | Go LSP |
+| `gofumpt` | Auto | Go formatter |
+| `goimports` | Manual | Go import organizer |
+| `delve` | Auto | Go debugger |
+| `basedpyright` or `pyright` | Auto | Python LSP |
+| `ruff` | Auto | Python linter/formatter |
+| `debugpy` | Auto | Python debugger |
+| `omnisharp` | Manual | C#/.NET LSP |
+| `netcoredbg` | Manual | .NET debugger |
+| `terraform-ls` | Auto | Terraform LSP |
+| `tflint` | Manual | Terraform linter |
+| `yamlls` | Auto | YAML LSP |
+| `jsonls` | Auto | JSON LSP |
+| `marksman` | Auto | Markdown LSP |
+| `dockerls` | Auto | Docker LSP |
+
+### 6. Copilot setup
+
+```vim
+:Copilot auth
+```
+
+Follow the GitHub authentication flow in your browser.
+
+## Plugin Architecture
+
+### UI Stack
+
+| Layer | Plugin | Purpose |
+|-------|--------|---------|
+| Theme | `tokyonight.nvim` (primary), `catppuccin`, `rose-pine`, `kanagawa` | Colorschemes |
+| Dashboard | `snacks.dashboard` | Startup screen with projects and git status |
+| Notifications | `snacks.notifier` | Floating notifications |
+| Command line | `noice.nvim` | Fancy cmdline, message routing, LSP messages |
+| Statusline | Heirline (AstroNvim default) | Custom mode-aware statusline |
+| Bufferline | `bufferline.nvim` | Visual buffer tabs |
+| Indent guides | `snacks.indent` | Visual code structure |
+| Smooth scroll | `snacks.scroll` | Animated scrolling |
+| Smooth cursor | `SmoothCursor.nvim` | Mode-aware cursor animation |
+| Zen mode | `snacks.zen` + `snacks.dim` | Distraction-free coding |
+| Word highlight | `snacks.words` | Reference highlighting |
+
+### Development Stack
+
+| Layer | Plugin | Purpose |
+|-------|--------|---------|
+| LSP | AstroLSP + native `vim.lsp.config` | Language intelligence |
+| Completion | AstroNvim default (blink.cmp/nvim-cmp) | Code completion |
+| Formatting | `conform.nvim` | Format-on-save with per-filetype formatters |
+| Linting | `nvim-lint` | Async linting on save/insert leave |
+| Debugging | `nvim-dap` + `nvim-dap-ui` + `mason-nvim-dap` | DAP with auto-installed adapters |
+| Diagnostics | `trouble.nvim` | Project-wide diagnostics panel |
+| AI | GitHub Copilot + CopilotChat | Inline completion and chat |
+
+### Navigation and Git
+
+| Layer | Plugin | Purpose |
+|-------|--------|---------|
+| File finder | Telescope | Fuzzy file/grep/buffer search |
+| File explorer | Neo-tree | Sidebar file browser |
+| Git signs | gitsigns.nvim (AstroNvim default) | Inline git changes |
+| Git blame | `snacks.git` | Blame line / blame file |
+| Git TUI | `snacks.lazygit` | Lazygit floating terminal |
+| Git diff | `diffview.nvim` | Side-by-side diff review |
+| Motion | `flash.nvim` | Search-label navigation |
+
+## Language Support
+
+Pre-configured language packs (via AstroCommunity):
+
+| Language | LSP | Formatter | Linter | Debugger |
+|----------|-----|-----------|--------|----------|
+| TypeScript/JavaScript | vtsls/tsserver | biome/prettierd/prettier | eslint_d | js-debug-adapter |
+| Go | gopls | goimports + gofumpt | golangci-lint | delve |
+| Python | basedpyright/pyright | ruff_format/black | ruff | debugpy |
+| Lua | lua-language-server | stylua | - | - |
+| C#/.NET | omnisharp/csharp-ls | csharpier | Roslyn analyzers | netcoredbg |
+| Rust | rust-analyzer | rustfmt | clippy | codelldb |
+| Terraform | terraform-ls | terraform_fmt | tflint | - |
+| Docker | dockerls | - | hadolint | - |
+| YAML | yamlls | prettier | yamllint | - |
+| JSON | jsonls | jq/prettier | - | - |
+| Markdown | marksman | prettier | markdownlint | - |
+| Clojure | clojure-lsp | - | - | - |
+
+## Key Mappings
+
+### AI Assistant (`<leader>A` and `<leader>a`)
+
 | Key | Description |
 |-----|-------------|
-| `<leader>Ac` | Copilot controls (enable/disable/status) |
-| `<leader>ae` | Explain code with CopilotChat |
-| `<leader>ar` | Review code with CopilotChat |
-| `<leader>at` | Generate tests with CopilotChat |
+| `<leader>Ace` | Enable Copilot |
+| `<leader>Acd` | Disable Copilot |
+| `<leader>Acs` | Copilot status |
+| `<leader>ae` | Explain code (CopilotChat) |
+| `<leader>ar` | Review code |
+| `<leader>at` | Generate tests |
 | `<leader>ac` | Open CopilotChat |
-| `<leader>aq` | Quick chat with Copilot |
+| `<leader>aq` | Quick chat |
 
-### Enhanced Navigation
+### Debugging (`<leader>d`)
+
+| Key | Description |
+|-----|-------------|
+| `<F5>` | Continue / Start |
+| `<F10>` | Step over |
+| `<F11>` | Step into |
+| `<F12>` | Step out |
+| `<leader>db` | Toggle breakpoint |
+| `<leader>dB` | Conditional breakpoint |
+| `<leader>du` | Toggle DAP UI |
+| `<leader>dr` | Open REPL |
+| `<leader>dl` | Run last config |
+| `<leader>dt` | Terminate |
+| `<leader>de` | Evaluate expression |
+
+### Diagnostics (`<leader>x`)
+
+| Key | Description |
+|-----|-------------|
+| `<leader>xx` | Toggle Trouble diagnostics |
+| `<leader>xd` | Document diagnostics |
+| `<leader>xw` | Workspace diagnostics |
+| `<leader>xq` | Quickfix list |
+| `<leader>xl` | Location list |
+| `<leader>xr` | LSP references |
+
+### Git (`<leader>g`)
+
+| Key | Description |
+|-----|-------------|
+| `<leader>gg` | Lazygit |
+| `<leader>gb` | Git blame (current line) |
+| `<leader>gB` | Git blame (file) |
+| `<leader>go` | Open in browser |
+
+### Navigation
+
 | Key | Description |
 |-----|-------------|
 | `fd` | Escape to normal mode |
-| `<leader>gb` | Toggle git blame |
-| `<C-\>`, `<Leader>th` | Toggle terminal, Toggle horizontally |
+| `<C-p>` | Find files |
+| `<C-f>` | Live grep |
+| `<Tab>` | Switch buffers |
+| `<S-h>` / `<S-l>` | Previous / Next buffer |
 
-### Custom Features
-- **Smart Shell Detection** - Automatically uses PowerShell on Windows, with Nushell support
-- **Project Switching** - Quick project navigation and switching
-- **Enhanced Terminal** - Improved terminal integration with smart shell selection
+### UI Toggles (`<leader>u`)
 
-## 🛠️ Configuration Highlights
+| Key | Description |
+|-----|-------------|
+| `<leader>uz` | Zen mode |
+| `<leader>un` | Notification history |
+| `<leader>uN` | Dismiss notifications |
+| `<leader>n` | Zen mode (alt) |
 
-### AI Integration
-- GitHub Copilot with proper keybindings
-- CopilotChat for interactive AI assistance
-- Codeium as alternative AI assistant
-- Smart AI workflow shortcuts
+## Configuration Structure
 
-### Visual Improvements
-- Custom dashboard with project shortcuts
-- Tokyo Night theme with modifications
-- Smooth cursor animations
-- Enhanced UI components with proper icons
+```
+init.lua                    Bootstrap lazy.nvim
+lua/
+  lazy_setup.lua            AstroNvim v6 + lazy.nvim setup
+  community.lua             AstroCommunity pack imports
+  polish.lua                Post-setup autocmds
+  theme-init.lua            Global theme system
+  autocmd.lua               Shell, Neovide, diagnostics, cursor autocmds
+  plugins/
+    astrocore.lua           Options, diagnostics, keymaps
+    astrolsp.lua            LSP configuration
+    astroui.lua             UI/colorscheme settings
+    ui-snacks.lua           snacks.nvim (dashboard, notifier, indent, scroll, zen, etc.)
+    ui-noice.lua            noice.nvim command palette
+    ui-theme.lua            Themes (TokyoNight, Catppuccin, Rose Pine, Kanagawa)
+    formatting.lua          conform.nvim formatters
+    linting.lua             nvim-lint linters
+    dap.lua                 Debug Adapter Protocol
+    git.lua                 Git workflow plugins
+    copilot.lua             GitHub Copilot + CopilotChat
+    heirline.lua            Custom statusline
+    telescope.lua           Telescope + extensions
+    neo-tree.lua            File explorer
+    terminal.lua            Terminal (WezTerm/toggleterm)
+    better-escape.lua       fd escape mapping
+    grapple.lua             Buffer tagging
+    init.lua                General plugins (which-key, aerial, surround, etc.)
+  util/
+    buffer.lua              Buffer navigation helpers
+    color.lua               Color manipulation library
+    dashboard_image.lua     ASCII art for dashboard
+    macro.lua               Search and diagnostic helpers
+    statusline.lua          Custom statusline providers
+    theme.lua               Theme color extraction
+```
 
-### Development Workflow
-- Auto-formatting on save (configurable per filetype)
-- Enhanced git integration with blame support
-- Project-aware configurations
-- Smart terminal detection
+## Customization
 
-## 🔍 Troubleshooting
+| What | Where |
+|------|-------|
+| Theme / colorscheme | `lua/plugins/ui-theme.lua` and `lua/plugins/astroui.lua` |
+| Keymaps | `lua/plugins/astrocore.lua` (mappings section) |
+| LSP settings | `lua/plugins/astrolsp.lua` |
+| Formatters | `lua/plugins/formatting.lua` |
+| Linters | `lua/plugins/linting.lua` |
+| AI / Copilot | `lua/plugins/copilot.lua` |
+| Dashboard | `lua/plugins/ui-snacks.lua` |
+| Language packs | `lua/community.lua` |
+| Debug adapters | `lua/plugins/dap.lua` |
+| Terminal shell | `lua/plugins/terminal.lua` and `lua/autocmd.lua` |
 
-### Common Issues
+## Troubleshooting
 
-**"Error requesting document symbols"**
-- Run `:LspInfo` to check server status
-- Use `:checkhealth lsp` for diagnostics
-- Install any additional LSPs using `:Mason` command
+**Neovim version too old:**
+AstroNvim v6 requires Neovim 0.11.0+. Check with `nvim --version`. Upgrade from the [official releases](https://github.com/neovim/neovim/releases).
 
-**Missing Nerd Font Icons**
-- Install a Nerd Font (Hack NF recommended)
-- Set terminal font to the Nerd Font
-- Restart terminal after font installation
+**Plugin errors on first launch:**
+Run `:Lazy sync` then restart Neovim. If errors persist, clear the plugin cache:
+```bash
+# Linux/macOS
+rm -rf ~/.local/share/nvim/lazy
+# Windows
+Remove-Item -Recurse ~/AppData/Local/nvim-data/lazy
+```
 
-**Copilot Authentication**
-- Run `:Copilot auth` in Neovim
-- Follow the GitHub authentication flow
-- Check `:Copilot status` for connection status
+**LSP not starting:**
+Run `:checkhealth vim.lsp` and `:Mason` to verify servers are installed. Use `:lsp` (v6 replacement for `:LspInfo`) to check active servers.
 
-## 📝 Customization
+**Missing icons:**
+Install a [Nerd Font](https://www.nerdfonts.com/) and set it as your terminal font. Recommended: CaskaydiaCove Nerd Font or JetBrainsMono Nerd Font.
 
-This configuration is designed to be modular and easily customizable:
+**Copilot authentication:**
+Run `:Copilot auth` and follow the browser flow. Check `:Copilot status` for connection status.
 
-- **Theme**: Modify `lua/plugins/tokyonight.lua` for theme customizations
-- **Keymaps**: Add custom mappings in `lua/plugins/keymaps.lua`
-- **LSP**: Extend language server configurations in `lua/plugins/astrolsp.lua`
-- **AI**: Customize AI integrations in `lua/plugins/copilot.lua` and `lua/plugins/ai-keymaps.lua`
+**Formatter not running:**
+Run `:ConformInfo` to see which formatters are available for the current filetype. Install missing formatters via `:Mason`.
 
-## 🤝 Contributing
+**Linter not running:**
+Check that the linter binary is installed and on your PATH. Run `:checkhealth` for diagnostics.
 
-Feel free to fork this configuration and adapt it to your needs. If you find improvements or fixes, pull requests are welcome!
+## Contributing
 
-## 📄 License
+Feel free to fork this configuration and adapt it to your needs. Pull requests are welcome.
+
+## License
 
 This configuration is open source and available under the MIT License.
 
 ---
 
-*Built with ❤️ using [AstroNvim](https://github.com/AstroNvim/AstroNvim)*
+*Built with [AstroNvim](https://github.com/AstroNvim/AstroNvim) v6 + [snacks.nvim](https://github.com/folke/snacks.nvim) + [noice.nvim](https://github.com/folke/noice.nvim)*

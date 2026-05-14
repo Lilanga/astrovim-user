@@ -1,4 +1,4 @@
--- Terminal configuration for AstroNvim v5
+-- Terminal configuration for AstroNvim v6
 -- Uses WezTerm if available, falls back to integrated terminal
 
 local M = {}

@@ -1,6 +1,6 @@
 local M = {}
 
--- AstroNvim v5 compatible notification
+-- Notification helper
 local function notify(msg, level, opts)
   vim.notify(msg, vim.log.levels[string.upper(level or "info")], opts)
 end
@@ -27,13 +27,11 @@ function M.better_search(key)
 end
 
 function M.diagnostics_next()
-  local row, _ = vim.diagnostics.get_next_pos()
-  vim.cmd(row)
+  vim.diagnostic.goto_next()
 end
 
 function M.diagnostics_prev()
-  local row, _ = vim.diagnostics.get_prev_pos()
-  vim.cmd(row)
+  vim.diagnostic.goto_prev()
 end
 
 return M

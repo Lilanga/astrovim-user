@@ -1,4 +1,4 @@
--- Global theme initialization for AstroNvim v5
+-- Global theme initialization for AstroNvim v6
 -- This file ensures THEME global is always available
 
 -- Initialize winblend early for which-key and other plugins

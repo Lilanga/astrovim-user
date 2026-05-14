@@ -1,164 +1,119 @@
+-- General plugins for AstroNvim v6
+
 return {
-  ------ disable ------
-  ---------------------
-  { "jay-babu/mason-nvim-dap.nvim", enabled = false },
-  { "uga-rosa/ccc.nvim",            enabled = false }, -- Disable due to LSP buffer handling issues
+  ------ Disabled plugins ------
+  { "Exafunction/codeium.nvim", enabled = false },
+  { "Exafunction/codeium.vim", enabled = false },
 
   ------ Visuals ------
-  ---------------------
-
   {
     "wsdjeg/vim-fetch",
     lazy = false,
   },
 
   {
-    "nyoom-engineering/oxocarbon.nvim",
-    -- lazy = false,
-  },
-
-  {
-    "kvrohit/mellow.nvim",
-    -- lazy = false,
-  },
-
-  {
     "gen740/SmoothCursor.nvim",
-    -- cond = vim.g.neovide == nil,
     lazy = false,
     opts = {
       type = "exp",
       autostart = true,
       fancy = {
         enable = true,
-        head = { cursor = "", texthl = "SmoothCursor", linehl = nil, },
+        head = { cursor = "", texthl = "SmoothCursor", linehl = nil },
       },
     },
   },
 
   {
     "zbirenbaum/neodim",
-    event = "User AstroFile",
+    event = "VeryLazy",
     opts = {
       alpha = 0.75,
     },
   },
 
   {
-    "folke/todo-comments.nvim",
-    event = "User AstroFile",
-    config = true,
-  },
-
-  {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    config = function()
-      local wk = require("which-key")
-      
-      -- Configure which-key with v3 compatible settings
-      wk.setup({
-        preset = "modern",
-        delay = 200,
-        expand = 1,
-        notify = false,
-        triggers = {
-          { "<auto>", mode = "nixsotc" },
-          { "<leader>", mode = { "n", "v" } },
-        },
-        win = {
-          border = "rounded",
-          padding = { 1, 2 }, -- extra window padding [top/bottom, left/right]
-          title = true,
-          title_pos = "center",
-          zindex = 1000,
-          -- Remove winblend from win config - it's not supported in v3
-        },
-        layout = {
-          width = { min = 20 },
-          spacing = 3,
-        },
+    opts = {
+      preset = "modern",
+      delay = 200,
+      notify = false,
+      win = {
+        border = "rounded",
+        padding = { 1, 2 },
+        title = true,
+        title_pos = "center",
+        zindex = 1000,
+      },
+      layout = {
+        width = { min = 20 },
+        spacing = 3,
+      },
+      sort = { "local", "order", "group", "alphanum", "mod" },
+      icons = {
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
+        ellipsis = "…",
+        mappings = true,
+        colors = true,
         keys = {
-          scroll_down = "<c-d>",
-          scroll_up = "<c-u>",
+          Up = " ",
+          Down = " ",
+          Left = " ",
+          Right = " ",
+          C = "󰘴 ",
+          M = "󰘵 ",
+          D = "󰘳 ",
+          S = "󰘶 ",
+          CR = "󰌑 ",
+          Esc = "󱊷 ",
+          ScrollWheelDown = "󱕐 ",
+          ScrollWheelUp = "󱕑 ",
+          NL = "󰌑 ",
+          BS = "󰁮",
+          Space = "󱁐 ",
+          Tab = "󰌒 ",
+          F1 = "󱊫",
+          F2 = "󱊬",
+          F3 = "󱊭",
+          F4 = "󱊮",
+          F5 = "󱊯",
+          F6 = "󱊰",
+          F7 = "󱊱",
+          F8 = "󱊲",
+          F9 = "󱊳",
+          F10 = "󱊴",
+          F11 = "󱊵",
+          F12 = "󱊶",
         },
-        sort = { "local", "order", "group", "alphanum", "mod" },
-        expand = 0,
-        replace = {
-          key = {
-            function(key)
-              return require("which-key.view").format(key)
-            end,
-          },
-        },
-        icons = {
-          breadcrumb = "»",
-          separator = "➜",
-          group = "+",
-          ellipsis = "…",
-          mappings = true,
-          rules = {},
-          colors = true,
-          keys = {
-            Up = " ",
-            Down = " ",
-            Left = " ",
-            Right = " ",
-            C = "󰘴 ",
-            M = "󰘵 ",
-            D = "󰘳 ",
-            S = "󰘶 ",
-            CR = "󰌑 ",
-            Esc = "󱊷 ",
-            ScrollWheelDown = "󱕐 ",
-            ScrollWheelUp = "󱕑 ",
-            NL = "󰌑 ",
-            BS = "󰁮",
-            Space = "󱁐 ",
-            Tab = "󰌒 ",
-            F1 = "󱊫",
-            F2 = "󱊬",
-            F3 = "󱊭",
-            F4 = "󱊮",
-            F5 = "󱊯",
-            F6 = "󱊰",
-            F7 = "󱊱",
-            F8 = "󱊲",
-            F9 = "󱊳",
-            F10 = "󱊴",
-            F11 = "󱊵",
-            F12 = "󱊶",
-          },
-        },
-        show_help = true,
-        show_keys = true,
-        disable = {
-          bt = {},
-          ft = {},
-        },
-      })
-      
-      -- Register key groups
+      },
+      show_help = true,
+      show_keys = true,
+    },
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.setup(opts)
       wk.add({
-        { "<leader>b", group = "Buffer" },
-        { "<leader>f", group = "Find" },
-        { "<leader>g", group = "Git" },
-        { "<leader>l", group = "LSP" },
-        { "<leader>t", group = "Terminal" },
-        { "<leader>u", group = "UI" },
-        { "<leader>x", group = "Diagnostics" },
-        { "<leader>r", group = "Replace" },
-        { "<leader>s", group = "Search" },
+        { "<Leader>b", group = "Buffer" },
+        { "<Leader>d", group = "Debug" },
+        { "<Leader>f", group = "Find" },
+        { "<Leader>g", group = "Git" },
+        { "<Leader>l", group = "LSP" },
+        { "<Leader>t", group = "Terminal" },
+        { "<Leader>u", group = "UI" },
+        { "<Leader>x", group = "Diagnostics" },
+        { "<Leader>r", group = "Replace" },
+        { "<Leader>s", group = "Search" },
+        { "<Leader>a", group = "AI" },
       })
     end,
   },
 
-  ------ movement ------
-  ----------------------
-
+  ------ Movement ------
   {
     "jinh0/eyeliner.nvim",
-    -- enabled = false,
     lazy = false,
     opts = {
       highlight_on_key = true,
@@ -166,40 +121,9 @@ return {
     },
   },
 
-  {
-    "TheSafdarAwan/find-extender.nvim",
-    enabled = false,
-    keys = { "f", "F", "F", "T", "t", "t", "T" },
-    config = true,
-  },
+  ------ Functionality ------
 
-  --- Functionality ---
-  ---------------------
-  {
-    "folke/twilight.nvim",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-  },
-  -- Org mode
-  {
-    "nvim-orgmode/orgmode",
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter", lazy = true },
-    },
-    event = "VeryLazy",
-    ft = { "org" },
-    config = function()
-      -- Setup orgmode
-      require("orgmode").setup {
-        org_agenda_files = "~/orgfiles/**/*",
-        org_default_notes_file = "~/orgfiles/refile.org",
-      }
-    end,
-  },
-  -- Replaced tagbar with aerial.nvim for better LSP integration
+  -- Aerial for symbol navigation
   {
     "stevearc/aerial.nvim",
     cmd = { "AerialToggle", "AerialOpen", "AerialNavToggle" },
@@ -226,13 +150,10 @@ return {
     },
   },
 
+  -- Trouble diagnostics panel (configured via astrocommunity)
   { "folke/trouble.nvim" },
 
-  -- plenary.nvim is already included as a dependency by other plugins
-
-  -- dressing.nvim is now handled by snacks.nvim in AstroNvim v5
-
-  -- Replaced nvim-cheat.sh with cheatsheet.nvim for better compatibility
+  -- Cheatsheet
   {
     "sudormrfbin/cheatsheet.nvim",
     cmd = { "Cheatsheet", "CheatsheetEdit" },
@@ -245,19 +166,17 @@ return {
 
   { "gennaro-tedesco/nvim-jqx" },
 
-  -- Renaming --
-  --------------
+  ------ Renaming ------
   { "windwp/nvim-spectre" },
 
-  -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
     keys = {
       {
-        "<leader>sr",
+        "<Leader>sr",
         function() require("ssr").open() end,
         mode = { "n", "x" },
-        desc = "Structural Replace"
+        desc = "Structural Replace",
       },
     },
     opts = {
@@ -272,18 +191,16 @@ return {
     },
   },
 
-  -- Text Manipulation --
-  -----------------------
-
+  ------ Text Manipulation ------
   {
     "echasnovski/mini.ai",
-    event = "User AstroFile",
+    event = "VeryLazy",
     config = function() require("mini.ai").setup() end,
   },
 
   {
     "kylechui/nvim-surround",
-    event = "User AstroFile",
+    event = "VeryLazy",
     opts = {
       keymaps = {
         normal = "sa",
@@ -300,48 +217,51 @@ return {
     },
   },
 
-  ------ git ------
-  -----------------
-  -- diffview.nvim is now imported from astrocommunity
-
-  --- Languages ---
-  -----------------
-  {
-    "QuickGD/quickgd.nvim",
-    -- dev = true,
-    ft = "gdshader",
-    cmd = {
-      "GodotRun",
-      "GodotRunLast",
-      "GodotStart",
-    },
-    config = function()
-      local quickgd = require "quickgd"
-      quickgd.setup()
-      quickgd.treesitter()
-      quickgd.cmp()
-    end,
-  },
-
-  -- neodev.nvim is deprecated, use lazydev.nvim instead
+  ------ Lua / Neovim dev ------
   {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {
       library = {
-        -- Load luvit types when the `vim.uv` word is found
         { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
   },
   { "Bilal2453/luvit-meta", lazy = true },
 
-  { "sbdchd/neoformat" },
+  ------ User plugins ------
+  "andweeb/presence.nvim",
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function() require("lsp_signature").setup() end,
+  },
 
-  ------ fun ------
-  -----------------
+  {
+    "L3MON4D3/LuaSnip",
+    config = function(plugin, opts)
+      require("luasnip").setup(opts)
+      local luasnip = require("luasnip")
+      luasnip.filetype_extend("javascript", { "javascriptreact" })
+    end,
+  },
 
-
-  -- Icons are now handled by mini.icons in AstroNvim v5
-  -- See lua/plugins/webdevicons.lua for the configuration
+  {
+    "windwp/nvim-autopairs",
+    config = function(plugin, opts)
+      require("nvim-autopairs").setup(opts)
+      local npairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
+      npairs.add_rules({
+        Rule("$", "$", { "tex", "latex" })
+          :with_pair(cond.not_after_regex("%%"))
+          :with_pair(cond.not_before_regex("xxx", 3))
+          :with_move(cond.none())
+          :with_del(cond.not_after_regex("xx"))
+          :with_cr(cond.none()),
+        Rule("a", "a", "-vim"),
+      })
+    end,
+  },
 }

@@ -1,11 +1,4 @@
--- if true then return end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- Polish: runs last in the setup process
+-- Good place for autocmds, filetypes, and custom setup
 
--- This will run last in the setup process and is a good place to configure
--- things like custom filetypes. This just pure lua so anything that doesn't
--- fit in the normal config locations above can go here
-
--- setup autocmds
-require "autocmd"
-
--- Theme is now loaded via plugins/tokyonight.lua
--- No need to set colorscheme here as it's handled by the plugin configuration
+require("autocmd")

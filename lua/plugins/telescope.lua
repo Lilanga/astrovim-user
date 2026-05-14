@@ -1,3 +1,5 @@
+-- Telescope configuration for AstroNvim v6
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -5,10 +7,10 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
   },
   opts = function(_, opts)
-    local actions = require "telescope.actions"
+    local actions = require("telescope.actions")
     return vim.tbl_deep_extend("force", opts, {
       defaults = {
-        winblend = vim.o.winblend + 10,
+        winblend = 10,
         selection_caret = "  ",
         layout_config = {
           width = 0.90,
@@ -46,10 +48,9 @@ return {
       },
     })
   end,
-  config = function(...)
-    require "plugins.configs.telescope"(...)
-    local telescope = require "telescope"
-    telescope.load_extension "undo"
-    telescope.load_extension "file_browser"
+  config = function(plugin, opts)
+    require("telescope").setup(opts)
+    require("telescope").load_extension("undo")
+    require("telescope").load_extension("file_browser")
   end,
 }
